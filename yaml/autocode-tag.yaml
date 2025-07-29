@@ -1,0 +1,67 @@
+# #data config for movie_tag
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+gpu_id: '0'
+
+benchmark_filename:
+    train: MovielensLatest_x1.train.inter
+    test: MovielensLatest_x1.test.inter
+    valid: MovielensLatest_x1.valid.inter
+
+load_col:
+    inter: [user_id, item_id, label, tag_id]
+#for movie_tag
+
+
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+
+eval_args:
+ split: {'RS':[0.8, 0.1, 0.1]}
+ group_by: ~
+ mode: labeled
+ order: RO
+valid_metric: AUC
+metrics: ['AUC', 'LogLoss']
+show_progress: False
+
+
+
+checkpoint_dir: saved/autocode
+
+
+# model
+dropout_prob: 0.1
+learning_rate: 0.001
+mlp_hidden_size: [400,400,400]
+
+stopping_step: 2
+embedding_size : 16
+
+
+n_layers: 3                     # (int) The number of attention layers.
+num_heads: 2                    # (int) The number of attention heads.
+attention_size: 8
+attn_dropout : 0.1
+has_residual: False
+weight_decay : 0.0001
+
+
+#for ml-tag
+alpha : 0.8
+beta : 0.8
+gamma : 0.01
+gpu_id: '5'
+al_loss_weight : 0.01
+cl_loss_cate : 'unifor_loss'
+cl_loss_weight : 0.01
+
+book_size : [256,256]
+num_code_book : 2

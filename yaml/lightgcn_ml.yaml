@@ -1,0 +1,41 @@
+# dataset config
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+load_col:
+  inter: [user_id, item_id, rating]
+  user: [user_id]
+  item: [item_id]
+show_progress: False
+
+# # data filtering for interactions
+val_interval:
+ rating: "[0,3);(3,inf)"
+unused_col: 
+  inter: [rating] 
+
+
+embedding_size: 16
+checkpoint_dir: "saved/lightgcn"
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+valid_metric: NDCG@10
+train_neg_sample_args:
+  distribution: uniform
+  sample_num: 1
+  dynamic: False
+
+#for ml
+learning_rate: 5e-4  
+n_layers: 1  #之前的Movie系列为1
+reg_weight: 0.01
+#for ml
+
+gpu_id : '6'

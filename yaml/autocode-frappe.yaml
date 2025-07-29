@@ -1,0 +1,53 @@
+#data config for frappe dataset
+field_separator: ","
+seq_separator: " "
+LABEL_FIELD: label
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+
+benchmark_filename:
+    train: Frappe.train.inter
+    test: Frappe.test.inter
+    valid: Frappe.valid.inter
+
+load_col:
+    inter: [label,user_id, item_id, daytime, weekday, isweekend, homework, cost, weather, country, city]
+#for frappe dataset
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+
+eval_args:
+ split: {'RS':[0.8, 0.1, 0.1]}
+ group_by: ~
+ mode: labeled
+ order: RO
+valid_metric: AUC
+metrics: ['AUC', 'LogLoss']
+show_progress: False
+checkpoint_dir: saved/code_cross_two
+
+# model
+dropout_prob: 0.1
+learning_rate: 0.001
+mlp_hidden_size: [256,256,256]
+stopping_step: 2
+embedding_size : 16
+n_layers: 3                    
+num_heads: 2                    
+attn_dropout : 0.1
+attention_size: 8
+weight_decay : 0.0005
+alpha : 1.0
+beta : 1.0
+gamma : 0.1
+gpu_id: '0'
+al_loss_weight : 0.1
+cl_loss_cate : 'unifor_loss'
+cl_loss_weight : 0.1
+book_size : [256]
+num_code_book : 1
+

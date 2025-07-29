@@ -1,0 +1,69 @@
+#data config for movie_tag
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+
+benchmark_filename:
+    train: MovielensLatest_x1.train.inter
+    test: MovielensLatest_x1.test.inter
+    valid: MovielensLatest_x1.valid.inter
+
+load_col:
+    inter: [user_id, item_id, label]
+# #for movie_tag
+
+
+#data config for frappe
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+
+benchmark_filename:
+    train: Frappe.train.inter
+    test: Frappe.test.inter
+    valid: Frappe.valid.inter
+
+load_col:
+    inter: [user_id, item_id, label]
+# #for frappe
+
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+
+eval_args:
+#  split: {'RS':[0.8, 0.1, 0.1]}
+ group_by: ~
+ mode: labeled
+ order: RO
+valid_metric: AUC
+metrics: ['AUC', 'LogLoss']
+show_progress: False
+
+
+checkpoint_dir : "saved/fm2code"
+
+# model
+
+code_dist: 'cos'   # 'cos' or 'l2'
+code_dist_tau: 0.2
+code_batch_size: 10000
+vq_type: 'pq'     # 'rq' or 'pq'
+vq_ema: False
+vq_loss_weight : 1 
+book_size : 256
+num_code_book : 1
+
+
+learning_rate: 0.001
+stopping_step: 2
+embedding_size : 16
+gpu_id: '6'

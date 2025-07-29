@@ -1,0 +1,37 @@
+#data config for movie_tag
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+gpu_id: '0'
+
+benchmark_filename:
+    train: MovielensLatest_x1.train.inter
+    test: MovielensLatest_x1.test.inter
+    valid: MovielensLatest_x1.valid.inter
+
+load_col:
+    inter: [user_id, item_id, label]
+#for movie_tag
+
+show_progress: False
+embedding_size: 16
+checkpoint_dir: "saved/lightgcn"
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+valid_metric: NDCG@10
+train_neg_sample_args:
+  distribution: uniform
+  sample_num: 1
+  dynamic: False
+
+#for ml
+learning_rate: 5e-4  
+n_layers: 1  
+reg_weight: 0.01
+#for ml

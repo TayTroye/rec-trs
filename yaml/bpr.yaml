@@ -1,0 +1,35 @@
+#data config for frappe
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+gpu_id: '0'
+benchmark_filename:
+    train: Frappe.train.inter
+    test: Frappe.test.inter
+    valid: Frappe.valid.inter
+
+embedding_size: 16
+checkpoint_dir: "saved/bpr"
+show_progress : False
+
+load_col:
+    inter: [label,user_id, item_id]
+# data config for frappe
+
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+valid_metric: NDCG@10
+train_neg_sample_args:
+  distribution: uniform
+  sample_num: 1
+  dynamic: False
+
+
+learning_rate: 5e-4   #for frappe and ml-1m
+# learning_rate: 1e-3

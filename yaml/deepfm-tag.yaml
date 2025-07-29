@@ -1,0 +1,45 @@
+# #data config for movie_tag
+field_separator: ","
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+gpu_id: '0'
+
+benchmark_filename:
+    train: MovielensLatest_x1.train.inter
+    test: MovielensLatest_x1.test.inter
+    valid: MovielensLatest_x1.valid.inter
+
+load_col:
+    inter: [user_id, item_id, label, tag_id]
+#for movie_tag
+
+
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+
+eval_args:
+ split: {'RS':[0.8, 0.1, 0.1]}
+ group_by: ~
+ mode: labeled
+ order: RO
+valid_metric: AUC
+metrics: ['AUC', 'LogLoss']
+show_progress: False
+stopping_step : 2
+embedding_size : 16
+
+
+checkpoint_dir: saved/deepfm
+gpu_id: '5'
+
+# model
+dropout_prob: 0.1
+learning_rate: 0.001
+mlp_hidden_size: [400,400,400]
+weight_decay : 0.0001

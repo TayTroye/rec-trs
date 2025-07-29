@@ -1,0 +1,54 @@
+# dataset config
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+gpu_id: '0'
+val_interval:
+ rating: "[0,3);(3,inf)"
+threshold:
+   rating: 4
+load_col:
+   inter: [user_id, item_id, rating]
+   user: [user_id, age, gender, occupation]
+   item: [item_id, genre, release_year]
+
+
+# training and evaluation
+epochs: 500
+train_batch_size: 4096
+eval_batch_size: 4096
+
+eval_args:
+ split: {'RS':[0.8, 0.1, 0.1]}
+ group_by: ~
+ mode: labeled
+ order: RO
+valid_metric: AUC
+metrics: ['AUC', 'LogLoss']
+show_progress: False
+checkpoint_dir: saved/code_cross_two
+
+# model
+dropout_prob: 0.4
+learning_rate: 0.001
+mlp_hidden_size: [256,256,256]
+stopping_step: 2
+embedding_size : 16
+n_layers: 3                    
+num_heads: 2                   
+dropout_probs: [0.4,0.1,0.4]    
+attention_size: 8
+attn_dropout : 0.4
+alpha : 1.2
+beta : 0.5
+gamma : 0.01
+gpu_id: '0'
+al_loss_weight : 1.6
+cl_loss_cate : 'align_loss'
+cl_loss_weight : 0.01
+book_size : [512]
+num_code_book : 1
